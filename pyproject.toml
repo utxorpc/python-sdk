@@ -1,0 +1,24 @@
+[build-system]  # https://python-poetry.org/docs/pyproject/#poetry-and-pep-517
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]  # https://python-poetry.org/docs/pyproject/
+name = "utxorpc"
+version = "0.1.0"
+description = "UTxO RPC SDK."
+authors = ["Felipe Gonzalez <felipe@txpipe.io>"]
+readme = "README.md"
+repository = "https://github.com/utxorpc/python-sdk"
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
+python = ">=3.8,<4.0"
+utxorpc-spec = "0.5.1"
+typing-extensions = "^4.12.2"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.10.0"
+ruff = "^0.4.10"
+
+[[tool.poetry.source]]
+name = "pypi"
