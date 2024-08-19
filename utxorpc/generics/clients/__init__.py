@@ -4,7 +4,6 @@ from typing import (
     Any,
     Dict,
     Generic,
-    Iterable,
     Optional,
     Protocol,
     Sequence,
@@ -33,7 +32,7 @@ class Client(Generic[Stub]):
     ssl_context: Optional[grpc.ChannelCredentials]
     channel: Optional[grpc.Channel]
     async_channel: Optional[grpc.aio.Channel]
-    options: Optional[Iterable[Tuple[str, str]]]
+    options: Optional[Sequence[Tuple[str, str]]]
     compression: Optional[grpc.Compression]
 
     chain: Type[Chain]
@@ -125,8 +124,7 @@ class Client(Generic[Stub]):
         get_channel = partial(
             grpc.aio.insecure_channel,
             self.uri,
-            # Typing bug on grpc lib (https://github.com/grpc/grpc/issues/37025)
-            options=self.options,  # type: ignore
+            options=self.options,
             compression=self.compression,
         )
         if self.secure:
@@ -134,8 +132,7 @@ class Client(Generic[Stub]):
                 grpc.aio.secure_channel,
                 self.uri,
                 self.ssl_context or grpc.ssl_channel_credentials(),
-                # Typing bug on grpc lib (https://github.com/grpc/grpc/issues/37025)
-                options=self.options,  # type: ignore
+                options=self.options,
                 compression=self.compression,
             )
         async with get_channel() as async_channel:
