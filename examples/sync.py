@@ -20,7 +20,7 @@ from utxorpc import (
 
 
 def main() -> None:
-    HOST = "api.utxorpc.cloud"
+    HOST = "cardano-preprod.utxorpc.cloud"
 
     API_KEY = os.getenv("DMTR_API_KEY")
     assert API_KEY is not None, "DMTR_API_KEY must be defined"
@@ -30,8 +30,8 @@ def main() -> None:
         slot=68149593,
         hash="403986182453766f3843fc6843fdf8f17587cd2ec10cece313b28c2ac88d39e5",
     )
-    TXO_REF = CardanoTxoRef.from_hex(
-        index=3, hash="314ad4b3008d8bff0913f97b761ce2d4045514bed79977d88983623acd968e2c"
+    TXO_REF = CardanoTxoRef.from_base64(
+        index=2, hash="87M9mQb5CDSzemAcO3XyDxYupGVdTeVCuaL/qPF3C/c="
     )
 
     sync_client: CardanoSyncClient = CardanoSyncClient(
