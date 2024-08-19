@@ -7,7 +7,7 @@ from utxorpc_spec.utxorpc.v1alpha.sync.sync_pb2 import (  # type: ignore
     FetchBlockRequest,
     FollowTipRequest,
 )
-from utxorpc_spec.utxorpc.v1alpha.sync.sync_pb2_grpc import ChainSyncServiceStub  # type: ignore
+from utxorpc_spec.utxorpc.v1alpha.sync.sync_pb2_grpc import SyncServiceStub  # type: ignore
 
 from utxorpc.generics import BlockType, PointType
 from utxorpc.generics.clients import Client
@@ -41,8 +41,8 @@ class FollowTipResponse(Generic[BlockType, PointType]):
             self.point = point
 
 
-class SyncClient(Client[ChainSyncServiceStub], Generic[BlockType, PointType]):
-    stub = ChainSyncServiceStub
+class SyncClient(Client[SyncServiceStub], Generic[BlockType, PointType]):
+    stub = SyncServiceStub
 
     async def async_fetch_block(self, ref: Iterable[PointType]) -> Optional[BlockType]:
         stub = self.get_async_stub()

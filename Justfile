@@ -14,6 +14,9 @@ lint:
 build:
   source .venv/bin/activate && poetry build
 
+publish token:
+  source .venv/bin/activate && poetry publish --build --username __token__ --password "{{ token }}"
+
 run-examples api_key:
   source .venv/bin/activate && DMTR_API_KEY={{api_key}} poetry run python examples/sync.py
   source .venv/bin/activate && DMTR_API_KEY={{api_key}} poetry run python examples/async.py
