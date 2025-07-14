@@ -18,3 +18,10 @@ class Chain(Protocol[BlockType, PointType]):
 
     @staticmethod
     def block_ref_to_point(block_ref: BlockRef) -> PointType: ...
+
+
+__all__ = [
+    "Chain",
+    "BlockType",
+    "PointType",
+]

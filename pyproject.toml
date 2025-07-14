@@ -12,13 +12,17 @@ repository = "https://github.com/utxorpc/python-sdk"
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
-python = ">=3.8,<4.0"
-utxorpc-spec = "0.5.1"
-typing-extensions = "^4.12.2"
+python = ">=3.9.1,<4.0"
+utxorpc-spec = "0.16.0"
+typing-extensions = "^4.14.1"
+protobuf = "^5.29.0"
+pycardano = "^0.14.0"
+blockfrost-python = "^0.6.0"
+
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.10.0"
-ruff = "^0.4.10"
+mypy = "^1.16.1"
+ruff = "^0.12.2"
 
 [[tool.poetry.source]]
 name = "pypi"
