@@ -16,8 +16,6 @@ python = ">=3.9.1,<4.0"
 utxorpc-spec = "0.16.0"
 typing-extensions = "^4.14.1"
 protobuf = "^5.29.0"
-pycardano = "^0.14.0"
-blockfrost-python = "^0.6.0"
 
 
 [tool.poetry.group.dev.dependencies]

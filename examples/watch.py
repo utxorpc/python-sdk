@@ -16,7 +16,7 @@ To generate an API key you can do the following:
 import asyncio
 import spec_compatibility  # noqa: F401
 from utxorpc import CardanoWatchClient, CardanoSubmitClient
-from utxorpc.tx_builder import (
+from tx_builder import (
     TEST_CONFIG,
     create_wallet_from_mnemonic,
     build_simple_transaction,

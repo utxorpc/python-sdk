@@ -10,7 +10,7 @@ This example demonstrates:
 import asyncio
 import spec_compatibility  # noqa: F401
 from utxorpc import CardanoSubmitClient
-from utxorpc.tx_builder import (
+from tx_builder import (
     TEST_CONFIG,
     create_wallet_from_mnemonic,
     build_simple_transaction,

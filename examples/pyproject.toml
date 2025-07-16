@@ -1,0 +1,23 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "utxorpc-examples"
+version = "0.1.0"
+description = "Examples for UTxO RPC SDK"
+authors = ["Felipe Gonzalez <felipe@txpipe.io>"]
+readme = "../README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.9.1,<4.0"
+# Use the parent SDK as a dependency
+utxorpc = {path = "../", develop = true}
+# Example-specific dependencies
+blockfrost-python = "^0.6.0"
+pycardano = "^0.14.0"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.16.1"
+ruff = "^0.12.2"
