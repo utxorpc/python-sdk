@@ -23,10 +23,10 @@ class SubmitClient(Client[SubmitServiceStub], Generic[BlockType, PointType]):
         stub = self.get_async_stub()
         tx = AnyChainTx(raw=tx_bytes)
         response = await stub.SubmitTx(
-            SubmitTxRequest(tx=[tx]),
+            SubmitTxRequest(tx=tx),
             metadata=[(k, v) for k, v in self.metadata.items()],
         )
-        return response.ref[0]
+        return response.ref
 
     async def async_wait_for_tx(self, tx_ref: bytes) -> AsyncGenerator[Stage, Any]:
         """Wait for a transaction to reach various stages asynchronously"""
@@ -57,7 +57,7 @@ class SubmitClient(Client[SubmitServiceStub], Generic[BlockType, PointType]):
         stub = self.get_stub()
         tx = AnyChainTx(raw=tx_bytes)
         response = stub.SubmitTx(
-            SubmitTxRequest(tx=[tx]),
+            SubmitTxRequest(tx=tx),
             metadata=[(k, v) for k, v in self.metadata.items()],
         )
-        return response.ref[0]
+        return response.ref

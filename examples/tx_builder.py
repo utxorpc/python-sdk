@@ -29,11 +29,17 @@ def create_wallet_from_mnemonic(mnemonic: str, network: Network = Network.TESTNE
     Note: This uses PyCardano's standard derivation which may differ from other wallets like Blaze.
     For compatibility with Blaze-generated addresses, you may need to use the address directly.
     """
+    print(f"\n🔑 Address Derivation Process:")
+    print(f"   Network: {network}")
+    print(f"   Mnemonic (first 6 words): {' '.join(mnemonic.split()[:6])}...")
+    
     # Create HD wallet from mnemonic
     hdwallet = HDWallet.from_mnemonic(mnemonic)
+    print(f"   ✓ HD Wallet created from mnemonic")
 
     # Derive payment key using standard Cardano derivation path
     # m/1852'/1815'/0'/0/0
+    print(f"   📍 Deriving payment key path: m/1852'/1815'/0'/0/0")
     hdwallet_payment = (
         hdwallet.derive(1852, hardened=True)  # Purpose (CIP-1852)
         .derive(1815, hardened=True)  # Cardano coin type
@@ -47,9 +53,12 @@ def create_wallet_from_mnemonic(mnemonic: str, network: Network = Network.TESTNE
     payment_verification_key = PaymentVerificationKey.from_signing_key(
         payment_signing_key
     )
+    print(f"   ✓ Payment key derived")
+    print(f"     Payment key hash: {payment_verification_key.hash().to_primitive().hex()}")
 
     # Derive staking key using standard path
     # m/1852'/1815'/0'/2/0
+    print(f"   📍 Deriving staking key path: m/1852'/1815'/0'/2/0")
     hdwallet_stake = (
         hdwallet.derive(1852, hardened=True)  # Purpose (CIP-1852)
         .derive(1815, hardened=True)  # Cardano coin type
@@ -61,11 +70,19 @@ def create_wallet_from_mnemonic(mnemonic: str, network: Network = Network.TESTNE
 
     stake_signing_key = StakeSigningKey.from_primitive(hdwallet_stake.xprivate_key[:32])
     stake_verification_key = StakeVerificationKey.from_signing_key(stake_signing_key)
+    print(f"   ✓ Staking key derived")
+    print(f"     Staking key hash: {stake_verification_key.hash().to_primitive().hex()}")
 
     # Create base address (with staking)
     address = Address(
         payment_verification_key.hash(), stake_verification_key.hash(), network=network
     )
+    
+    print(f"\n🏠 Final Address Details:")
+    print(f"   Address: {address}")
+    print(f"   Address bytes: {address.to_primitive().hex()}")
+    print(f"   Payment part: {address.payment_part.to_primitive().hex() if address.payment_part else 'None'}")
+    print(f"   Staking part: {address.staking_part.to_primitive().hex() if address.staking_part else 'None'}")
 
     return payment_signing_key, address
 

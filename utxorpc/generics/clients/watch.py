@@ -14,19 +14,23 @@ from . import Client
 class WatchTxResponseAction(Enum):
     apply = "APPLY"
     undo = "UNDO"
+    idle = "IDLE"
 
 
 class WatchTxResponseWrapper(Generic[BlockType, PointType]):
     action: WatchTxResponseAction
     tx: Optional[Any]
+    block_ref: Optional[PointType]
 
     def __init__(
         self,
         action: WatchTxResponseAction,
-        tx: Optional[Any],
+        tx: Optional[Any] = None,
+        block_ref: Optional[PointType] = None,
     ) -> None:
         self.action = action
         self.tx = tx
+        self.block_ref = block_ref
 
 
 class WatchClient(Client[WatchServiceStub], Generic[BlockType, PointType]):
@@ -68,4 +72,9 @@ class WatchClient(Client[WatchServiceStub], Generic[BlockType, PointType]):
                 yield WatchTxResponseWrapper(
                     action=WatchTxResponseAction.undo,
                     tx=response.undo,
+                )
+            elif response.idle.SerializeToString() != b"":
+                yield WatchTxResponseWrapper(
+                    action=WatchTxResponseAction.idle,
+                    block_ref=self.chain.block_ref_to_point(response.idle),
                 )

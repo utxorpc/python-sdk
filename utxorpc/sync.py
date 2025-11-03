@@ -39,11 +39,11 @@ class CardanoChain(Chain[CardanoBlock, CardanoPoint]):
 
     @staticmethod
     def point_to_block_ref(point: CardanoPoint) -> BlockRef:
-        return BlockRef(index=point.slot, hash=point.hash)
+        return BlockRef(slot=point.slot, hash=point.hash)
 
     @staticmethod
     def block_ref_to_point(block_ref: BlockRef) -> CardanoPoint:
-        return CardanoPoint(slot=block_ref.index, hash=block_ref.hash)
+        return CardanoPoint(slot=block_ref.slot, hash=block_ref.hash)
 
 
 class CardanoSyncClient(SyncClient[CardanoBlock, CardanoPoint]):

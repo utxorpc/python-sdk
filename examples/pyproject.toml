@@ -12,12 +12,12 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = ">=3.9.1,<4.0"
-utxorpc-spec = "0.16.0"
-typing-extensions = "^4.14.1"
-protobuf = "^5.29.0"
+utxorpc-spec = "0.18.1"
+typing-extensions = "^4.15.0"
+protobuf = "^6.33.0"
 blockfrost-python = "^0.6.0"
 pycardano = "^0.14.0"
 
 [tool.poetry.group.dev.dependencies]
-mypy = "^1.16.1"
-ruff = "^0.12.2"
+mypy = "^1.18.2"
+ruff = "^0.14.3"
