@@ -144,3 +144,18 @@ class Client(Generic[Stub]):
                 yield self
             finally:
                 pass
+
+
+# Import at the end to avoid circular imports
+from .sync import SyncClient  # noqa: E402
+from .query import QueryClient  # noqa: E402
+from .submit import SubmitClient  # noqa: E402
+from .watch import WatchClient  # noqa: E402
+
+__all__ = [
+    "Client",
+    "SyncClient",
+    "QueryClient",
+    "SubmitClient",
+    "WatchClient",
+]

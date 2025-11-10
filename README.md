@@ -1,10 +1,26 @@
 # python-sdk
 Python SDK for the UTxO RPC interface
 
+## Features
+
+- Sync and Query service clients for Cardano blockchain
+- Support for both synchronous and asynchronous operations
+- Type-safe implementation with Protocol Buffers
+- Easy-to-use API with connection management
+
+
+# Important Note
+
+Due to import path issues in utxorpc-spec 0.16.0, you must import `spec_compatibility` before using this SDK:
+
+```python
+import spec_compatibility
+from utxorpc import CardanoSyncClient, CardanoQueryClient
+```
 
 # Setup
 
-`utxorpc` requires `Python3.8>,<4.0`. To setup a local environment you can run:
+`utxorpc` requires `Python3.9>,<4.0`. To setup a local environment you can run:
 
 ```sh
 just init
