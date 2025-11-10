@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]  # https://python-poetry.org/docs/pyproject/
 name = "utxorpc"
-version = "0.1.0"
+version = "0.2.0"
 description = "UTxO RPC SDK."
 authors = ["Felipe Gonzalez <felipe@txpipe.io>"]
 readme = "README.md"
