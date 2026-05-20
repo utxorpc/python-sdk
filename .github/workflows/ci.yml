@@ -1,0 +1,40 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      # Relock first: poetry.lock is stale vs pyproject.toml (the merged spec
+      # bump did not regenerate it).
+      - run: poetry lock
+      - run: poetry install
+      - run: poetry build
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      # Relock first: poetry.lock is stale vs pyproject.toml (the merged spec
+      # bump did not regenerate it).
+      - run: poetry lock
+      - run: poetry install
+      # No pytest suite yet; import-smoke the built package so CI fails fast
+      # on broken codegen/spec dependencies.
+      - run: poetry run python -c "import utxorpc"
