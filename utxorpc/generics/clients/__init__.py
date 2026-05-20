@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from contextlib import asynccontextmanager, contextmanager
 from functools import partial
 from typing import (

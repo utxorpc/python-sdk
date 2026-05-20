@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import AsyncGenerator, Any, Generic, List, Optional, Iterable, Union
 
 from utxorpc_spec.utxorpc.v1alpha.query.query_pb2 import (  # type: ignore

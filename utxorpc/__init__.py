@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from .sync import CardanoBlock, CardanoPoint, CardanoSyncClient
 from .query import CardanoQueryClient
 from .submit import CardanoSubmitClient

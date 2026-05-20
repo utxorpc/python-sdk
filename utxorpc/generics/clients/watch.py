@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import AsyncGenerator, Any, Generic, Optional
 from enum import Enum
 

@@ -12,10 +12,10 @@ repository = "https://github.com/utxorpc/python-sdk"
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]  # https://python-poetry.org/docs/dependency-specification/
-python = ">=3.9.1,<4.0"
-utxorpc-spec = "0.19.0"
+python = ">=3.10,<4.0"
+utxorpc-spec = "0.19.2"
 typing-extensions = "^4.15.0"
-protobuf = "^6.33.0"
+protobuf = "^7.34.1"
 
 
 [tool.poetry.group.dev.dependencies]

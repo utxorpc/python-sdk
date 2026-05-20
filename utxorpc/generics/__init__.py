@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional, Protocol, TypeVar
 
 from utxorpc_spec.utxorpc.v1alpha.sync.sync_pb2 import (  # type: ignore
