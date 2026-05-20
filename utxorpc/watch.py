@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from utxorpc.sync import CardanoBlock, CardanoPoint, CardanoChain
 from utxorpc.generics.clients.watch import WatchClient
 

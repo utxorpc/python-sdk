@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import AsyncGenerator, Any, Generic, Optional
 
 from utxorpc_spec.utxorpc.v1alpha.submit.submit_pb2 import (  # type: ignore
