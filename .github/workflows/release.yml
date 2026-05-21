@@ -1,28 +1,66 @@
-name: "Release"
-description: 'Publishes python package to PyPI'
+name: Release
 
+# Conforms to the umbrella SDK release pipeline contract:
+# u5c-factory reference/sdk-pipeline-requirements.md
 on:
-  workflow_dispatch:
   push:
-    tags: [v*]
+    tags: ['v*']
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - name: Verify tag matches package version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          MANIFEST=$(sed -nE 's/^version = "(.+)"/\1/p' pyproject.toml | head -1)
+          if [ "$TAG" != "$MANIFEST" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match pyproject.toml version $MANIFEST"
+            exit 1
+          fi
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.10"
+  build:
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      # Relock first: poetry.lock is stale vs pyproject.toml (see ci.yml).
+      - run: poetry lock
+      - run: poetry install
+      - run: poetry build
 
-    - name: Install Poetry
-      shell: bash
-      run: pip install --no-input poetry
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      - run: poetry lock
+      - run: poetry install
+      # No pytest suite yet; import-smoke the package (see ci.yml).
+      - run: poetry run python -c "import utxorpc"
 
-    - name: Publish to PyPI
-      shell: bash
-      env:
-        PYPI_TOKEN: ${{ inputs.registry-token }}
-      run: |
-        poetry publish --build --username __token__ --password $PYPI_TOKEN
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pipx install poetry
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: poetry
+      - name: Publish to PyPI
+        env:
+          PYPI_REGISTRY_TOKEN: ${{ secrets.PYPI_REGISTRY_TOKEN }}
+        run: poetry publish --build --username __token__ --password "$PYPI_REGISTRY_TOKEN"
