@@ -4,6 +4,9 @@ on:
     branches: [main]
   push:
     branches: [main]
+  # On-demand trigger: GitHub refuses to re-run a run older than 30 days, and
+  # both jobs relock against live PyPI, so drift is only observable on a fresh run.
+  workflow_dispatch:
 
 jobs:
   build:
