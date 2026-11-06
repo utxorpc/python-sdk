@@ -21,6 +21,7 @@ protobuf = "^7.34.1"
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.18.2"
 ruff = "^0.14.3"
+pytest = "^8.4"
 
 [[tool.poetry.source]]
 name = "pypi"
