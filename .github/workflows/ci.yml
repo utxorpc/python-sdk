@@ -35,6 +35,4 @@ jobs:
       # Fail if poetry.lock is stale vs pyproject.toml; install what is committed.
       - run: poetry check --lock
       - run: poetry install
-      # No pytest suite yet; import-smoke the built package so CI fails fast
-      # on broken codegen/spec dependencies.
-      - run: poetry run python -c "import utxorpc"
+      - run: poetry run pytest
