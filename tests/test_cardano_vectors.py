@@ -1,4 +1,4 @@
-"""Decodes the protocol vectors with the spec's generated types."""
+"""Decodes the Cardano vectors with the spec's generated types."""
 
 import csv
 from pathlib import Path
@@ -7,7 +7,7 @@ import pytest
 from utxorpc_spec.utxorpc.v1alpha.cardano import cardano_pb2 as v1alpha
 from utxorpc_spec.utxorpc.v1beta.cardano import cardano_pb2 as v1beta
 
-VECTORS = Path(__file__).parent / "protocol-vectors"
+VECTORS = Path(__file__).parent / "vectors" / "cardano"
 
 with open(VECTORS / "vectors.tsv", newline="") as index:
     ROWS = list(csv.DictReader(index, delimiter="\t"))
